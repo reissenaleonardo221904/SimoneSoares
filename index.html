@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simone Soares | Consultora de Negócios Imobiliários</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card: #131a26;
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.15);
+      --green: #25d366;
+      --green-dark: #1ebe5d;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --border: #243044;
+      --fire-1: #ff4500;
+      --fire-2: #ff9800;
+      --fire-3: #ffd700;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* Cabeçalho */
+    header {
+      background: linear-gradient(180deg, #111827 0%, #0b0f17 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 16px 24px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--gold-soft);
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      letter-spacing: 1px;
+      user-select: none;
+      cursor: default;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      color: var(--gold);
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 211, 102, 0.12);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      color: #6ee7b7;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-top: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    /* Filtros */
+    .filters-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      background: #0b0f17;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    .filter-btn.active {
+      background: var(--gold);
+      color: #0b0f17;
+      border-color: var(--gold);
+    }
+
+    .city-select {
+      background: #0b0f17;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 22px;
+    }
+
+    /* Card Padrão */
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+
+    /* ============================================================
+       EFEITO DE FOGO / OPORTUNIDADE ÚNICA
+       ============================================================ */
+    @keyframes fireGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 14px rgba(255, 69, 0, 0.75),
+          0 0 28px rgba(255, 140, 0, 0.45),
+          inset 0 0 12px rgba(255, 69, 0, 0.25);
+        border-color: #ff5722;
+      }
+      50% {
+        box-shadow:
+          0 0 22px rgba(255, 193, 7, 0.9),
+          0 0 42px rgba(255, 69, 0, 0.65),
+          inset 0 0 18px rgba(255, 152, 0, 0.35);
+        border-color: #ffb300;
+      }
+    }
+
+    @keyframes flameFlicker {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    .card.on-fire {
+      border: 2px solid #ff5722;
+      animation: fireGlow 2.2s infinite ease-in-out;
+      background: linear-gradient(180deg, #1f1412 0%, #131a26 45%);
+    }
+
+    .fire-banner {
+      background: linear-gradient(90deg, #b91c1c, #ea580c, #d97706, #ea580c, #b91c1c);
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-align: center;
+      padding: 6px 10px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      animation: flameFlicker 1.8s infinite ease-in-out;
+    }
+
+    /* Carrossel */
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 230px;
+      background: #090d14;
+      overflow: hidden;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: zoom-in;
+      display: block;
+    }
+
+    .badge-cat {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(11, 15, 23, 0.88);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .photo-counter {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.72);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(11, 15, 23, 0.78);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+
+    /* Conteúdo */
+    .card-body {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .card.on-fire .price {
+      color: #ff9800;
+    }
+
+    .title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .location {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .features {
+      list-style: none;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .features li {
+      font-size: 0.86rem;
+      color: #d1d5db;
+      padding: 3px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+    }
+
+    .features li:last-child {
+      border-bottom: none;
+    }
+
+    .btn-whats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--green);
+      color: #062110;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 12px;
+      border-radius: 10px;
+      transition: background 0.2s;
+      margin-top: auto;
+    }
+
+    .btn-whats:hover {
+      background: var(--green-dark);
+    }
+
+    .card.on-fire .btn-whats {
+      background: linear-gradient(90deg, #ff6d00, #ff9100);
+      color: #140800;
+      font-weight: 800;
+    }
+
+    /* Modais (Zoom + Login + Painel Admin) */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal img.zoom-target {
+      max-width: 100%;
+      max-height: 88vh;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      color: #fff;
+      font-size: 26px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.12);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+    }
+
+    /* Caixa de Login e Painel */
+    .admin-box {
+      background: #111827;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      position: relative;
+      margin: auto;
+    }
+
+    .admin-panel-box {
+      max-width: 820px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .admin-box h2 {
+      color: var(--gold);
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: #0b0f17;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 87, 34, 0.12);
+      border: 1px solid rgba(255, 87, 34, 0.4);
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin: 12px 0;
+      cursor: pointer;
+    }
+
+    .checkbox-row input {
+      width: 18px;
+      height: 18px;
+      accent-color: #ff5722;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #0b0f17;
+      border: none;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      font-size: 0.92rem;
+    }
+
+    .btn-secondary {
+      background: #1f2937;
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      background: rgba(220, 38, 38, 0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(220, 38, 38, 0.5);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .admin-item-row {
+      background: #0b0f17;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .error-msg {
+      color: #f87171;
+      font-size: 0.82rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 40px;
+      padding: 0 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Gatilho secreto: 5 cliques rápidos no avatar "SS" -->
+    <div class="avatar" id="secret-trigger">SS</div>
+    <h1>Simone Soares</h1>
+    <p class="subtitle">Consultora de Negócios Imobiliários</p>
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      <span>Atendimento até às 17h • Ferraz & Itaquá</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="filters-box">
+      <div class="filter-group" id="category-filters">
+        <button class="filter-btn active" data-cat="todos">Todos os Imóveis</button>
+        <button class="filter-btn" data-cat="locacao">Locação Residencial</button>
+        <button class="filter-btn" data-cat="venda">Venda</button>
+        <button class="filter-btn" data-cat="comercial">Comercial</button>
+        <button class="filter-btn" data-cat="eventos">Espaço para Eventos</button>
+      </div>
+
+      <select class="city-select" id="city-filter">
+        <option value="todas">Todas as Cidades</option>
+        <option value="Ferraz de Vasconcelos">Ferraz de Vasconcelos</option>
+        <option value="Itaquaquecetuba">Itaquaquecetuba</option>
+      </select>
+    </div>
+
+    <div class="grid" id="properties-grid"></div>
+  </main>
+
+  <footer>
+    <p>Simone Soares — Consultora de Negócios | Atendimento comercial até às 17h</p>
+  </footer>
+
+  <!-- Modal Zoom Foto -->
+  <div class="modal" id="photo-modal" onclick="closeModal('photo-modal')">
+    <button class="modal-close">&times;</button>
+    <img class="zoom-target" id="modal-img" src="" alt="Visualização ampliada" />
+  </div>
+
+  <!-- Modal Login Oculto -->
+  <div class="modal" id="login-modal">
+    <div class="admin-box">
+      <button class="modal-close" style="top:12px; right:12px; width:32px; height:32px; font-size:20px;" onclick="closeModal('login-modal')">&times;</button>
+      <h2>Acesso Restrito</h2>
+      <div class="form-group">
+        <label>Login</label>
+        <input type="text" id="adm-user" autocomplete="off" />
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="adm-pass" />
+      </div>
+      <button class="btn-primary" onclick="checkLogin()">Entrar</button>
+      <p class="error-msg" id="login-error">Credenciais inválidas.</p>
+    </div>
+  </div>
+
+  <!-- Modal Painel Administrador -->
+  <div class="modal" id="admin-modal">
+    <div class="admin-box admin-panel-box">
+      <button class="modal-close" style="top:14px; right:14px; width:34px; height:34px; font-size:20px;" onclick="closeModal('admin-modal')">&times;</button>
+      <h2>Painel de Gestão de Imóveis</h2>
+
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;">
+        <button class="btn-primary" style="width:auto;" onclick="openEditForm()">+ Adicionar Novo Imóvel</button>
+        <button class="btn-secondary" onclick="exportUpdatedCode()">📋 Copiar Código Atualizado (p/ GitHub)</button>
+        <button class="btn-danger" onclick="resetDefaultData()">Restaurar Padrão</button>
+      </div>
+
+      <!-- Formulário de Adição / Edição -->
+      <div id="edit-form-container" style="display:none; background:#0b0f17; border:1px solid var(--gold); border-radius:12px; padding:16px; margin-bottom:20px;">
+        <h3 id="form-title" style="color:#fff; font-size:1rem; margin-bottom:12px;">Editar Imóvel</h3>
+        <input type="hidden" id="edit-index" />
+
+        <div class="form-group">
+          <label>Título do Anúncio</label>
+          <input type="text" id="f-titulo" placeholder="Ex: Casa 2 Cômodos – Itaquá" />
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>Preço / Valor</label>
+            <input type="text" id="f-preco" placeholder="Ex: R$ 650,00 / mês" />
+          </div>
+          <div class="form-group">
+            <label>Categoria</label>
+            <select id="f-categoria">
+              <option value="locacao">Locação Residencial</option>
+              <option value="venda">Venda</option>
+              <option value="comercial">Comercial</option>
+              <option value="eventos">Espaço para Eventos</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>Cidade (Filtro)</label>
+            <input type="text" id="f-cidade" placeholder="Ferraz de Vasconcelos ou Itaquaquecetuba" />
+          </div>
+          <div class="form-group">
+            <label>Endereço / Bairro Exibido</label>
+            <input type="text" id="f-localizacao" placeholder="Ex: Rua Stella Mazzuca – Margarida" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Características (1 por linha)</label>
+          <textarea id="f-caracteristicas" rows="4" placeholder="130 m² de área construída&#10;3 Banheiros&#10;Porta de aço automática"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Caminhos ou Links das Fotos (1 por linha)</label>
+          <textarea id="f-fotos" rows="3" placeholder="img/salao1.jpg&#10;img/salao2.jpg"></textarea>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="f-destaque" />
+          <span style="font-size:0.88rem; font-weight:700; color:#ffb74d;">
+            🔥 Ativar Fogo em volta do anúncio (Oportunidade Única / Preço Abaixo da Região)
+          </span>
+        </label>
+
+        <div style="display:flex; gap:10px; margin-top:12px;">
+          <button class="btn-primary" onclick="saveProperty()">Salvar Imóvel</button>
+          <button class="btn-secondary" onclick="cancelEdit()">Cancelar</button>
+        </div>
+      </div>
+
+      <!-- Lista de Imóveis Cadastrados -->
+      <div id="admin-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // WHATSAPP DE ATENDIMENTO
+    // =========================================================================
+    const WHATSAPP_NUMBER = "5511996264465";
+
+    // =========================================================================
+    // DADOS INICIAIS DOS IMÓVEIS
+    // =========================================================================
+    const DEFAULT_IMOVEIS = [
+      {
+        id: "REF-01",
+        titulo: "Salão Comercial p/ Locação – Ferraz",
+        categoria: "comercial",
+        cidade: "Ferraz de Vasconcelos",
+        localizacao: "Rua Stella Mazzuca – Margarida, Ferraz de Vasconcelos",
+        preco: "R$ 4.000,00 / mês",
+        destaqueFogo: false,
+        fotos: [
+          "img/salao1.jpg",
+          "img/salao2.jpg"
+        ],
+        caracteristicas: [
+          "130 m² de área construída",
+          "Terreno de 5,5 x 21,5 m",
+          "3 Banheiros + Área externa",
+          "Porta de aço automática",
+          "Excelente localização e visibilidade"
+        ]
+      },
+      {
+        id: "REF-02",
+        titulo: "Casa de 2 Cômodos – Itaquaquecetuba",
+        categoria: "locacao",
+        cidade: "Itaquaquecetuba",
+        localizacao: "Itaquaquecetuba (Divisa com Kemel 1)",
+        preco: "R$ 650,00 / mês",
+        destaqueFogo: true,
+        fotos: [
+          "img/casa1.jpg",
+          "img/casa2.jpg"
+        ],
+        caracteristicas: [
+          "Casa de 2 cômodos + banheiro",
+          "Lavanderia compartilhada",
+          "4 casas no mesmo quintal",
+          "Fácil acesso à divisa com Kemel 1"
+        ]
+      },
+      {
+        id: "REF-03",
+        titulo: "Espaço Completo para Eventos – Itaquá",
+        categoria: "eventos",
+        cidade: "Itaquaquecetuba",
+        localizacao: "Itaquaquecetuba – SP",
+        preco: "Consulte valor da diária",
+        destaqueFogo: false,
+        fotos: [
+          "img/evento1.jpg",
+          "img/evento2.jpg",
+          "img/evento3.jpg",
+          "img/evento4.jpg",
+          "img/evento5.jpg"
+        ],
+        caracteristicas: [
+          "Piscina com cascata e iluminação",
+          "Área gourmet coberta com churrasqueira",
+          "Mesa de sinuca e pebolim",
+          "Mesas, cadeiras, freezer e fogão inclusos"
+        ]
+      }
+    ];
+
+    const CAT_LABELS = {
+      locacao: "Locação Residencial",
+      venda: "Venda",
+      comercial: "Comercial",
+      eventos: "Lazer & Eventos"
+    };
+
+    let imoveis = JSON.parse(localStorage.getItem("simone_catalogo_v1")) || JSON.parse(JSON.stringify(DEFAULT_IMOVEIS));
+    const photoIndexes = {};
+    let currentCategory = "todos";
+    let currentCity = "todas";
+
+    // =========================================================================
+    // GATILHO OCULTO (5 CLIQUES NO AVATAR) E AUTENTICAÇÃO
+    // =========================================================================
+    let clickCount = 0;
+    let clickTimer = null;
+
+    document.getElementById("secret-trigger").addEventListener("click", () => {
+      clickCount++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => { clickCount = 0; }, 1800);
+
+      if (clickCount >= 5) {
+        clickCount = 0;
+        document.getElementById("adm-user").value = "";
+        document.getElementById("adm-pass").value = "";
+        document.getElementById("login-error").style.display = "none";
+        document.getElementById("login-modal").classList.add("open");
+      }
+    });
+
+    function checkLogin() {
+      const u = document.getElementById("adm-user").value.trim();
+      const p = document.getElementById("adm-pass").value.trim();
+
+      if (u === "Vidanova2027" && p === "vidanova2027") {
+        closeModal("login-modal");
+        openAdminPanel();
+      } else {
+        document.getElementById("login-error").style.display = "block";
+      }
+    }
+
+    document.getElementById("adm-pass").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") checkLogin();
+    });
+
+    // =========================================================================
+    // RENDERIZAÇÃO DO CATÁLOGO PÚBLICO
+    // =========================================================================
+    function renderProperties() {
+      const grid = document.getElementById("properties-grid");
+      grid.innerHTML = "";
+
+      // Coloca imóveis em destaque (fogo) primeiro
+      const ordenados = [...imoveis].sort((a, b) => (b.destaqueFogo ? 1 : 0) - (a.destaqueFogo ? 1 : 0));
+
+      const filtrados = ordenados.filter(item => {
+        const matchCat = currentCategory === "todos" || item.categoria === currentCategory;
+        const matchCity = currentCity === "todas" || item.cidade.toLowerCase() === currentCity.toLowerCase();
+        return matchCat && matchCity;
+      });
+
+      if (filtrados.length === 0) {
+        grid.innerHTML = `<p style="color:#9ca3af; grid-column: 1/-1; text-align:center; padding: 30px;">Nenhum imóvel encontrado com esse filtro no momento.</p>`;
+        return;
+      }
+
+      filtrados.forEach(item => {
+        if (photoIndexes[item.id] === undefined) photoIndexes[item.id] = 0;
+        const fotos = item.fotos && item.fotos.length ? item.fotos : ["https://via.placeholder.com/600x400?text=Sem+Foto"];
+        const idx = photoIndexes[item.id] % fotos.length;
+
+        const msg = encodeURIComponent(
+          `Olá! Vi o imóvel *${item.titulo}* (${item.id}) no catálogo online da Simone Soares e gostaria de mais informações.`
+        );
+        const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+        const catLabel = CAT_LABELS[item.categoria] || item.categoria;
+
+        const card = document.createElement("article");
+        card.className = `card ${item.destaqueFogo ? "on-fire" : ""}`;
+        card.innerHTML = `
+          ${item.destaqueFogo ? `<div class="fire-banner">🔥 Oportunidade Única • Excelente Custo-Benefício • Sai Rápido</div>` : ""}
+          <div class="carousel">
+            <span class="badge-cat">${catLabel}</span>
+            <img id="img-${item.id}" src="${fotos[idx]}" alt="${item.titulo}" onclick="openZoom('${fotos[idx]}')" />
+            ${fotos.length > 1 ? `
+              <button class="nav-btn prev-btn" onclick="changePhoto('${item.id}', -1)">&#10094;</button>
+              <button class="nav-btn next-btn" onclick="changePhoto('${item.id}', 1)">&#10095;</button>
+            ` : ""}
+            <span class="photo-counter" id="count-${item.id}">${idx + 1} / ${fotos.length}</span>
+          </div>
+          <div class="card-body">
+            <div class="price">${item.preco}</div>
+            <h2 class="title">${item.titulo}</h2>
+            <div class="location">📍 ${item.localizacao}</div>
+            <ul class="features">
+              ${item.caracteristicas.map(c => `<li>✓ ${c}</li>`).join("")}
+            </ul>
+            <a class="btn-whats" href="${waLink}" target="_blank" rel="noopener">
+              ${item.destaqueFogo ? "🔥 Garantir Visita Agora" : "📲 Consultar / Agendar Visita"}
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function changePhoto(id, step) {
+      const item = imoveis.find(i => i.id === id);
+      if (!item || !item.fotos.length) return;
+      const total = item.fotos.length;
+      photoIndexes[id] = (photoIndexes[id] + step + total) % total;
+
+      const imgEl = document.getElementById(`img-${id}`);
+      const countEl = document.getElementById(`count-${id}`);
+      const newSrc = item.fotos[photoIndexes[id]];
+
+      imgEl.src = newSrc;
+      imgEl.setAttribute("onclick", `openZoom('${newSrc}')`);
+      countEl.textContent = `${photoIndexes[id] + 1} / ${total}`;
+    }
+
+    // =========================================================================
+    // FUNÇÕES DO PAINEL ADMINISTRATIVO
+    // =========================================================================
+    function openAdminPanel() {
+      renderAdminList();
+      cancelEdit();
+      document.getElementById("admin-modal").classList.add("open");
+    }
+
+    function renderAdminList() {
+      const list = document.getElementById("admin-list");
+      list.innerHTML = "";
+
+      imoveis.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "admin-item-row";
+        row.innerHTML = `
+          <div>
+            <strong style="color:#fff;">${item.destaqueFogo ? "🔥 " : ""}${item.titulo}</strong>
+            <div style="font-size:0.82rem; color:var(--gold);">${item.preco} • ${item.cidade}</div>
+          </div>
+          <div class="admin-actions">
+            <button class="btn-secondary" onclick="toggleFire(${index})">${item.destaqueFogo ? "Tirar Fogo" : "🔥 Fogo"}</button>
+            <button class="btn-secondary" onclick="openEditForm(${index})">Editar</button>
+            <button class="btn-danger" onclick="deleteProperty(${index})">Excluir</button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    function toggleFire(index) {
+      imoveis[index].destaqueFogo = !imoveis[index].destaqueFogo;
+      persistData();
+    }
+
+    function openEditForm(index = -1) {
+      const box = document.getElementById("edit-form-container");
+      box.style.display = "block";
+      document.getElementById("edit-index").value = index;
+
+      if (index >= 0) {
+        const item = imoveis[index];
+        document.getElementById("form-title").textContent = `Editando: ${item.titulo}`;
+        document.getElementById("f-titulo").value = item.titulo;
+        document.getElementById("f-preco").value = item.preco;
+        document.getElementById("f-categoria").value = item.categoria;
+        document.getElementById("f-cidade").value = item.cidade;
+        document.getElementById("f-localizacao").value = item.localizacao;
+        document.getElementById("f-caracteristicas").value = item.caracteristicas.join("\n");
+        document.getElementById("f-fotos").value = item.fotos.join("\n");
+        document.getElementById("f-destaque").checked = !!item.destaqueFogo;
+      } else {
+        document.getElementById("form-title").textContent = "Novo Imóvel";
+        document.getElementById("f-titulo").value = "";
+        document.getElementById("f-preco").value = "";
+        document.getElementById("f-categoria").value = "locacao";
+        document.getElementById("f-cidade").value = "Itaquaquecetuba";
+        document.getElementById("f-localizacao").value = "";
+        document.getElementById("f-caracteristicas").value = "";
+        document.getElementById("f-fotos").value = "";
+        document.getElementById("f-destaque").checked = false;
+      }
+    }
+
+    function cancelEdit() {
+      document.getElementById("edit-form-container").style.display = "none";
+    }
+
+    function saveProperty() {
+      const index = parseInt(document.getElementById("edit-index").value, 10);
+      const titulo = document.getElementById("f-titulo").value.trim();
+      const preco = document.getElementById("f-preco").value.trim();
+      const categoria = document.getElementById("f-categoria").value;
+      const cidade = document.getElementById("f-cidade").value.trim() || "Itaquaquecetuba";
+      const localizacao = document.getElementById("f-localizacao").value.trim();
+      const caracteristicas = document.getElementById("f-caracteristicas").value
+        .split("\n").map(s => s.trim()).filter(Boolean);
+      const fotos = document.getElementById("f-fotos").value
+        .split("\n").map(s => s.trim()).filter(Boolean);
+      const destaqueFogo = document.getElementById("f-destaque").checked;
+
+      if (!titulo || !preco) {
+        alert("Preencha pelo menos o título e o preço.");
+        return;
+      }
+
+      const novoObj = {
+        id: index >= 0 ? imoveis[index].id : `REF-0${imoveis.length + 1}`,
+        titulo,
+        categoria,
+        cidade,
+        localizacao,
+        preco,
+        destaqueFogo,
+        fotos: fotos.length ? fotos : ["https://via.placeholder.com/600x400?text=Imovel"],
+        caracteristicas
+      };
+
+      if (index >= 0) {
+        imoveis[index] = novoObj;
+      } else {
+        imoveis.unshift(novoObj);
+      }
+
+      cancelEdit();
+      persistData();
+    }
+
+    function deleteProperty(index) {
+      if (confirm(`Deseja realmente excluir "${imoveis[index].titulo}"?`)) {
+        imoveis.splice(index, 1);
+        persistData();
+      }
+    }
+
+    function persistData() {
+      localStorage.setItem("simone_catalogo_v1", JSON.stringify(imoveis));
+      updateCityDropdown();
+      renderAdminList();
+      renderProperties();
+    }
+
+    function resetDefaultData() {
+      if (confirm("Voltar para os 3 imóveis originais?")) {
+        localStorage.removeItem("simone_catalogo_v1");
+        imoveis = JSON.parse(JSON.stringify(DEFAULT_IMOVEIS));
+        persistData();
+      }
+    }
+
+    function exportUpdatedCode() {
+      const jsonStr = JSON.stringify(imoveis, null, 6);
+      const fullHtml = document.documentElement.outerHTML.replace(
+        /const DEFAULT_IMOVEIS = \[[\s\S]*?\];/,
+        `const DEFAULT_IMOVEIS = ${jsonStr};`
+      );
+      navigator.clipboard.writeText("<!DOCTYPE html>\n" + fullHtml).then(() => {
+        alert("Código HTML completo copiado! Agora é só colar no seu index.html no GitHub para atualizar para todos os clientes.");
+      });
+    }
+
+    function updateCityDropdown() {
+      const select = document.getElementById("city-filter");
+      const cidades = [...new Set(imoveis.map(i => i.cidade))];
+      select.innerHTML = `<option value="todas">Todas as Cidades</option>` +
+        cidades.map(c => `<option value="${c}">${c}</option>`).join("");
+    }
+
+    // =========================================================================
+    // MODAIS E FILTROS
+    // =========================================================================
+    function openZoom(src) {
+      document.getElementById("modal-img").src = src;
+      document.getElementById("photo-modal").classList.add("open");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    document.querySelectorAll("#category-filters .filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#category-filters .filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentCategory = btn.dataset.cat;
+        renderProperties();
+      });
+    });
+
+    document.getElementById("city-filter").addEventListener("change", (e) => {
+      currentCity = e.target.value;
+      renderProperties();
+    });
+
+    updateCityDropdown();
+    renderProperties();
+  </script>
+</body>
+</html>
