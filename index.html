@@ -6,18 +6,18 @@
   <title>Simone Soares | Consultora de Negócios Imobiliários</title>
   <style>
     :root {
-      --bg: #0b0f17;
-      --card: #131a26;
-      --gold: #d4af37;
-      --gold-soft: rgba(212, 175, 55, 0.15);
-      --green: #25d366;
-      --green-dark: #1ebe5d;
-      --text: #f3f4f6;
+      --bg-1: #070a11;
+      --bg-2: #0e1525;
+      --bg-3: #15141f;
+      --card: rgba(19, 27, 42, 0.92);
+      --gold: #eab308;
+      --gold-bright: #fde047;
+      --gold-soft: rgba(234, 179, 8, 0.16);
+      --green: #22c55e;
+      --green-dark: #16a34a;
+      --text: #f9fafb;
       --muted: #9ca3af;
-      --border: #243044;
-      --fire-1: #ff4500;
-      --fire-2: #ff9800;
-      --fire-3: #ffd700;
+      --border: rgba(148, 163, 184, 0.18);
     }
 
     * {
@@ -27,63 +27,103 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    /* Fundo animado */
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     body {
-      background-color: var(--bg);
+      min-height: 100vh;
       color: var(--text);
       line-height: 1.5;
-      padding-bottom: 60px;
+      padding-bottom: 64px;
+      background: linear-gradient(-45deg, var(--bg-1), var(--bg-2), var(--bg-3), #0b1320);
+      background-size: 350% 350%;
+      animation: bgShift 16s ease infinite;
     }
 
     /* Cabeçalho */
     header {
-      background: linear-gradient(180deg, #111827 0%, #0b0f17 100%);
+      position: relative;
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.95) 0%, rgba(11, 15, 23, 0.75) 100%);
       border-bottom: 1px solid var(--border);
-      padding: 28px 16px 24px;
+      padding: 32px 16px 26px;
       text-align: center;
+      overflow: hidden;
     }
 
-    .avatar {
-      width: 76px;
-      height: 76px;
+    header::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 340px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(234, 179, 8, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    @keyframes floatAvatar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .avatar-wrap {
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
-      background: var(--gold-soft);
-      border: 2px solid var(--gold);
-      color: var(--gold);
-      font-size: 28px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
-      letter-spacing: 1px;
-      user-select: none;
+      padding: 3px;
+      background: linear-gradient(135deg, #fde047, #d97706, #fde047);
+      margin: 0 auto 14px;
+      box-shadow: 0 0 24px rgba(234, 179, 8, 0.35);
+      animation: floatAvatar 3.6s ease-in-out infinite;
       cursor: default;
+      user-select: none;
+    }
+
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #111827;
     }
 
     header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
+      font-size: 1.7rem;
+      font-weight: 800;
       color: #ffffff;
+      letter-spacing: -0.3px;
     }
 
     .subtitle {
-      color: var(--gold);
-      font-size: 0.95rem;
-      font-weight: 500;
-      margin-top: 2px;
+      color: var(--gold-bright);
+      font-size: 0.96rem;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.65; }
     }
 
     .status-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(37, 211, 102, 0.12);
-      border: 1px solid rgba(37, 211, 102, 0.35);
-      color: #6ee7b7;
-      font-size: 0.8rem;
-      padding: 4px 12px;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.14);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #86efac;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 5px 14px;
       border-radius: 999px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .status-dot {
@@ -91,26 +131,29 @@
       height: 8px;
       border-radius: 50%;
       background: var(--green);
+      animation: pulseDot 1.8s infinite;
     }
 
     .container {
-      max-width: 1080px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 20px 16px;
+      padding: 22px 16px;
     }
 
-    /* Filtros */
+    /* Barra de Filtros */
     .filters-box {
       background: var(--card);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 24px;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 26px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     }
 
     .filter-group {
@@ -120,112 +163,135 @@
     }
 
     .filter-btn {
-      background: #0b0f17;
+      background: rgba(11, 15, 23, 0.85);
       color: var(--muted);
       border: 1px solid var(--border);
       padding: 8px 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.22s ease;
     }
 
     .filter-btn:hover {
       border-color: var(--gold);
       color: #fff;
+      transform: translateY(-1px);
     }
 
     .filter-btn.active {
-      background: var(--gold);
-      color: #0b0f17;
-      border-color: var(--gold);
+      background: linear-gradient(135deg, #facc15, #eab308);
+      color: #090d16;
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
     }
 
     .city-select {
-      background: #0b0f17;
+      background: rgba(11, 15, 23, 0.9);
       color: var(--text);
       border: 1px solid var(--border);
       padding: 8px 12px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 0.85rem;
       outline: none;
+      cursor: pointer;
     }
 
-    /* Grid */
+    /* Grid & Animação de Entrada */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fill, minmax(315px, 1fr));
+      gap: 24px;
     }
 
-    /* Card Padrão */
     .card {
       position: relative;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, border-color 0.2s;
+      animation: fadeInUp 0.45s ease both;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(212, 175, 55, 0.5);
+      transform: translateY(-6px);
+      border-color: rgba(250, 204, 21, 0.55);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
     }
 
     /* ============================================================
-       EFEITO DE FOGO / OPORTUNIDADE ÚNICA
+       ANIMAÇÃO DE FOGO / OPORTUNIDADE ÚNICA
        ============================================================ */
-    @keyframes fireGlow {
+    @keyframes fireAura {
       0%, 100% {
         box-shadow:
-          0 0 14px rgba(255, 69, 0, 0.75),
-          0 0 28px rgba(255, 140, 0, 0.45),
-          inset 0 0 12px rgba(255, 69, 0, 0.25);
+          0 0 16px rgba(255, 69, 0, 0.8),
+          0 0 34px rgba(255, 111, 0, 0.5),
+          0 0 55px rgba(220, 38, 38, 0.25);
         border-color: #ff5722;
       }
       50% {
         box-shadow:
-          0 0 22px rgba(255, 193, 7, 0.9),
-          0 0 42px rgba(255, 69, 0, 0.65),
-          inset 0 0 18px rgba(255, 152, 0, 0.35);
-        border-color: #ffb300;
+          0 0 26px rgba(255, 193, 7, 0.95),
+          0 0 48px rgba(255, 69, 0, 0.72),
+          0 0 70px rgba(245, 158, 11, 0.35);
+        border-color: #facc15;
       }
     }
 
-    @keyframes flameFlicker {
+    @keyframes fireStripe {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fireBounce {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
+      50% { transform: scale(1.02); }
     }
 
     .card.on-fire {
       border: 2px solid #ff5722;
-      animation: fireGlow 2.2s infinite ease-in-out;
-      background: linear-gradient(180deg, #1f1412 0%, #131a26 45%);
+      animation: fadeInUp 0.45s ease both, fireAura 1.9s infinite ease-in-out;
+      background: linear-gradient(180deg, rgba(69, 10, 10, 0.42) 0%, rgba(19, 27, 42, 0.96) 42%);
     }
 
     .fire-banner {
-      background: linear-gradient(90deg, #b91c1c, #ea580c, #d97706, #ea580c, #b91c1c);
-      color: #fff;
+      background: linear-gradient(270deg, #dc2626, #ea580c, #f59e0b, #ea580c, #dc2626);
+      background-size: 300% 300%;
+      animation: fireStripe 2.4s ease infinite, fireBounce 1.4s ease-in-out infinite;
+      color: #ffffff;
       font-size: 0.76rem;
       font-weight: 800;
       text-align: center;
-      padding: 6px 10px;
-      letter-spacing: 0.6px;
+      padding: 7px 12px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-      animation: flameFlicker 1.8s infinite ease-in-out;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
     }
 
     /* Carrossel */
     .carousel {
       position: relative;
       width: 100%;
-      height: 230px;
-      background: #090d14;
+      height: 235px;
+      background: #080c14;
       overflow: hidden;
     }
 
@@ -235,59 +301,70 @@
       object-fit: cover;
       cursor: zoom-in;
       display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .card:hover .carousel img {
+      transform: scale(1.03);
     }
 
     .badge-cat {
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(11, 15, 23, 0.88);
+      background: rgba(9, 13, 22, 0.88);
+      backdrop-filter: blur(6px);
       border: 1px solid var(--gold);
-      color: var(--gold);
-      font-size: 0.74rem;
+      color: var(--gold-bright);
+      font-size: 0.73rem;
       font-weight: 700;
       padding: 4px 10px;
-      border-radius: 6px;
+      border-radius: 7px;
       text-transform: uppercase;
+      z-index: 2;
     }
 
     .photo-counter {
       position: absolute;
       bottom: 10px;
       right: 12px;
-      background: rgba(0, 0, 0, 0.72);
+      background: rgba(0, 0, 0, 0.75);
       color: #fff;
       font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 6px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 7px;
+      z-index: 2;
     }
 
     .nav-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(11, 15, 23, 0.78);
+      background: rgba(9, 13, 22, 0.78);
       color: #fff;
       border: 1px solid rgba(255, 255, 255, 0.25);
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       cursor: pointer;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 2;
+      transition: all 0.2s;
     }
 
     .nav-btn:hover {
       background: var(--gold);
-      color: #000;
+      color: #090d16;
     }
 
     .prev-btn { left: 10px; }
     .next-btn { right: 10px; }
 
-    /* Conteúdo */
+    /* Conteúdo do Card */
     .card-body {
       padding: 18px;
       flex: 1;
@@ -296,14 +373,15 @@
     }
 
     .price {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--gold);
+      font-size: 1.38rem;
+      font-weight: 900;
+      color: var(--gold-bright);
       margin-bottom: 4px;
     }
 
     .card.on-fire .price {
-      color: #ff9800;
+      color: #fb923c;
+      text-shadow: 0 0 12px rgba(251, 146, 60, 0.35);
     }
 
     .title {
@@ -321,15 +399,15 @@
 
     .features {
       list-style: none;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       flex: 1;
     }
 
     .features li {
       font-size: 0.86rem;
-      color: #d1d5db;
-      padding: 3px 0;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+      color: #e5e7eb;
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.07);
     }
 
     .features li:last-child {
@@ -342,33 +420,36 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
-      background: var(--green);
-      color: #062110;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #052e16;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.92rem;
-      padding: 12px;
-      border-radius: 10px;
-      transition: background 0.2s;
+      padding: 12px 14px;
+      border-radius: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
       margin-top: auto;
+      box-shadow: 0 6px 18px rgba(34, 197, 94, 0.28);
     }
 
     .btn-whats:hover {
-      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(34, 197, 94, 0.42);
     }
 
     .card.on-fire .btn-whats {
-      background: linear-gradient(90deg, #ff6d00, #ff9100);
-      color: #140800;
-      font-weight: 800;
+      background: linear-gradient(135deg, #ef4444, #f97316, #facc15);
+      color: #180600;
+      box-shadow: 0 6px 22px rgba(249, 115, 22, 0.45);
     }
 
-    /* Modais (Zoom + Login + Painel Admin) */
+    /* Modais */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(6px);
       z-index: 999;
       align-items: center;
       justify-content: center;
@@ -383,7 +464,7 @@
     .modal img.zoom-target {
       max-width: 100%;
       max-height: 88vh;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid var(--border);
     }
 
@@ -394,7 +475,7 @@
       color: #fff;
       font-size: 26px;
       cursor: pointer;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.12);
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -404,7 +485,6 @@
       border: none;
     }
 
-    /* Caixa de Login e Painel */
     .admin-box {
       background: #111827;
       border: 1px solid var(--border);
@@ -423,7 +503,7 @@
     }
 
     .admin-box h2 {
-      color: var(--gold);
+      color: var(--gold-bright);
       font-size: 1.25rem;
       margin-bottom: 14px;
     }
@@ -452,18 +532,12 @@
       outline: none;
     }
 
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--gold);
-    }
-
     .checkbox-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(255, 87, 34, 0.12);
-      border: 1px solid rgba(255, 87, 34, 0.4);
+      background: rgba(255, 87, 34, 0.14);
+      border: 1px solid rgba(255, 87, 34, 0.45);
       padding: 10px 12px;
       border-radius: 8px;
       margin: 12px 0;
@@ -478,7 +552,7 @@
 
     .btn-primary {
       background: var(--gold);
-      color: #0b0f17;
+      color: #090d16;
       border: none;
       padding: 11px 16px;
       border-radius: 8px;
@@ -539,7 +613,7 @@
       text-align: center;
       color: var(--muted);
       font-size: 0.82rem;
-      margin-top: 40px;
+      margin-top: 44px;
       padding: 0 16px;
     }
   </style>
@@ -547,13 +621,15 @@
 <body>
 
   <header>
-    <!-- Gatilho secreto: 5 cliques rápidos no avatar "SS" -->
-    <div class="avatar" id="secret-trigger">SS</div>
+    <!-- Gatilho oculto: 5 cliques rápidos no avatar da Simone -->
+    <div class="avatar-wrap" id="secret-trigger">
+      <img src="img/avatar-simone.jpg" alt="Simone Soares" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;border-radius:50%;background:#111827;color:#fde047;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;\'>SS</div>';" />
+    </div>
     <h1>Simone Soares</h1>
     <p class="subtitle">Consultora de Negócios Imobiliários</p>
     <div class="status-badge">
       <span class="status-dot"></span>
-      <span>Atendimento até às 17h • Ferraz & Itaquá</span>
+      <span>Atendimento comercial até às 17h</span>
     </div>
   </header>
 
@@ -617,20 +693,19 @@
         <button class="btn-danger" onclick="resetDefaultData()">Restaurar Padrão</button>
       </div>
 
-      <!-- Formulário de Adição / Edição -->
       <div id="edit-form-container" style="display:none; background:#0b0f17; border:1px solid var(--gold); border-radius:12px; padding:16px; margin-bottom:20px;">
         <h3 id="form-title" style="color:#fff; font-size:1rem; margin-bottom:12px;">Editar Imóvel</h3>
         <input type="hidden" id="edit-index" />
 
         <div class="form-group">
           <label>Título do Anúncio</label>
-          <input type="text" id="f-titulo" placeholder="Ex: Casa 2 Cômodos – Itaquá" />
+          <input type="text" id="f-titulo" />
         </div>
 
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
           <div class="form-group">
             <label>Preço / Valor</label>
-            <input type="text" id="f-preco" placeholder="Ex: R$ 650,00 / mês" />
+            <input type="text" id="f-preco" />
           </div>
           <div class="form-group">
             <label>Categoria</label>
@@ -646,28 +721,28 @@
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
           <div class="form-group">
             <label>Cidade (Filtro)</label>
-            <input type="text" id="f-cidade" placeholder="Ferraz de Vasconcelos ou Itaquaquecetuba" />
+            <input type="text" id="f-cidade" />
           </div>
           <div class="form-group">
             <label>Endereço / Bairro Exibido</label>
-            <input type="text" id="f-localizacao" placeholder="Ex: Rua Stella Mazzuca – Margarida" />
+            <input type="text" id="f-localizacao" />
           </div>
         </div>
 
         <div class="form-group">
           <label>Características (1 por linha)</label>
-          <textarea id="f-caracteristicas" rows="4" placeholder="130 m² de área construída&#10;3 Banheiros&#10;Porta de aço automática"></textarea>
+          <textarea id="f-caracteristicas" rows="4"></textarea>
         </div>
 
         <div class="form-group">
           <label>Caminhos ou Links das Fotos (1 por linha)</label>
-          <textarea id="f-fotos" rows="3" placeholder="img/salao1.jpg&#10;img/salao2.jpg"></textarea>
+          <textarea id="f-fotos" rows="3"></textarea>
         </div>
 
         <label class="checkbox-row">
           <input type="checkbox" id="f-destaque" />
           <span style="font-size:0.88rem; font-weight:700; color:#ffb74d;">
-            🔥 Ativar Fogo em volta do anúncio (Oportunidade Única / Preço Abaixo da Região)
+            🔥 Ativar Fogo em volta do anúncio (Oportunidade Única / Sai Rápido)
           </span>
         </label>
 
@@ -677,20 +752,13 @@
         </div>
       </div>
 
-      <!-- Lista de Imóveis Cadastrados -->
       <div id="admin-list"></div>
     </div>
   </div>
 
   <script>
-    // =========================================================================
-    // WHATSAPP DE ATENDIMENTO
-    // =========================================================================
     const WHATSAPP_NUMBER = "5511996264465";
 
-    // =========================================================================
-    // DADOS INICIAIS DOS IMÓVEIS
-    // =========================================================================
     const DEFAULT_IMOVEIS = [
       {
         id: "REF-01",
@@ -700,10 +768,7 @@
         localizacao: "Rua Stella Mazzuca – Margarida, Ferraz de Vasconcelos",
         preco: "R$ 4.000,00 / mês",
         destaqueFogo: false,
-        fotos: [
-          "img/salao1.jpg",
-          "img/salao2.jpg"
-        ],
+        fotos: ["img/salao1.jpg", "img/salao2.jpg"],
         caracteristicas: [
           "130 m² de área construída",
           "Terreno de 5,5 x 21,5 m",
@@ -720,10 +785,7 @@
         localizacao: "Itaquaquecetuba (Divisa com Kemel 1)",
         preco: "R$ 650,00 / mês",
         destaqueFogo: true,
-        fotos: [
-          "img/casa1.jpg",
-          "img/casa2.jpg"
-        ],
+        fotos: ["img/casa1.jpg", "img/casa2.jpg"],
         caracteristicas: [
           "Casa de 2 cômodos + banheiro",
           "Lavanderia compartilhada",
@@ -762,14 +824,11 @@
       eventos: "Lazer & Eventos"
     };
 
-    let imoveis = JSON.parse(localStorage.getItem("simone_catalogo_v1")) || JSON.parse(JSON.stringify(DEFAULT_IMOVEIS));
+    let imoveis = JSON.parse(localStorage.getItem("simone_catalogo_v2")) || JSON.parse(JSON.stringify(DEFAULT_IMOVEIS));
     const photoIndexes = {};
     let currentCategory = "todos";
     let currentCity = "todas";
 
-    // =========================================================================
-    // GATILHO OCULTO (5 CLIQUES NO AVATAR) E AUTENTICAÇÃO
-    // =========================================================================
     let clickCount = 0;
     let clickTimer = null;
 
@@ -803,14 +862,22 @@
       if (e.key === "Enter") checkLogin();
     });
 
-    // =========================================================================
-    // RENDERIZAÇÃO DO CATÁLOGO PÚBLICO
-    // =========================================================================
+    function fallbackImg(imgEl, src) {
+      imgEl.onerror = null;
+      const svg = encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+          <rect width="600" height="400" fill="#111827"/>
+          <text x="300" y="185" fill="#fde047" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Foto nao encontrada na pasta</text>
+          <text x="300" y="218" fill="#9ca3af" font-family="monospace" font-size="16" text-anchor="middle">${src}</text>
+        </svg>`
+      );
+      imgEl.src = `data:image/svg+xml,${svg}`;
+    }
+
     function renderProperties() {
       const grid = document.getElementById("properties-grid");
       grid.innerHTML = "";
 
-      // Coloca imóveis em destaque (fogo) primeiro
       const ordenados = [...imoveis].sort((a, b) => (b.destaqueFogo ? 1 : 0) - (a.destaqueFogo ? 1 : 0));
 
       const filtrados = ordenados.filter(item => {
@@ -824,10 +891,11 @@
         return;
       }
 
-      filtrados.forEach(item => {
+      filtrados.forEach((item, i) => {
         if (photoIndexes[item.id] === undefined) photoIndexes[item.id] = 0;
-        const fotos = item.fotos && item.fotos.length ? item.fotos : ["https://via.placeholder.com/600x400?text=Sem+Foto"];
+        const fotos = item.fotos && item.fotos.length ? item.fotos : ["img/casa1.jpg"];
         const idx = photoIndexes[item.id] % fotos.length;
+        const currentSrc = fotos[idx];
 
         const msg = encodeURIComponent(
           `Olá! Vi o imóvel *${item.titulo}* (${item.id}) no catálogo online da Simone Soares e gostaria de mais informações.`
@@ -837,11 +905,12 @@
 
         const card = document.createElement("article");
         card.className = `card ${item.destaqueFogo ? "on-fire" : ""}`;
+        card.style.animationDelay = `${i * 0.07}s`;
         card.innerHTML = `
           ${item.destaqueFogo ? `<div class="fire-banner">🔥 Oportunidade Única • Excelente Custo-Benefício • Sai Rápido</div>` : ""}
           <div class="carousel">
             <span class="badge-cat">${catLabel}</span>
-            <img id="img-${item.id}" src="${fotos[idx]}" alt="${item.titulo}" onclick="openZoom('${fotos[idx]}')" />
+            <img id="img-${item.id}" src="${currentSrc}" alt="${item.titulo}" onclick="openZoom('${currentSrc}')" onerror="fallbackImg(this, '${currentSrc}')" />
             ${fotos.length > 1 ? `
               <button class="nav-btn prev-btn" onclick="changePhoto('${item.id}', -1)">&#10094;</button>
               <button class="nav-btn next-btn" onclick="changePhoto('${item.id}', 1)">&#10095;</button>
@@ -874,14 +943,12 @@
       const countEl = document.getElementById(`count-${id}`);
       const newSrc = item.fotos[photoIndexes[id]];
 
+      imgEl.onerror = function () { fallbackImg(this, newSrc); };
       imgEl.src = newSrc;
       imgEl.setAttribute("onclick", `openZoom('${newSrc}')`);
       countEl.textContent = `${photoIndexes[id] + 1} / ${total}`;
     }
 
-    // =========================================================================
-    // FUNÇÕES DO PAINEL ADMINISTRATIVO
-    // =========================================================================
     function openAdminPanel() {
       renderAdminList();
       cancelEdit();
@@ -898,7 +965,7 @@
         row.innerHTML = `
           <div>
             <strong style="color:#fff;">${item.destaqueFogo ? "🔥 " : ""}${item.titulo}</strong>
-            <div style="font-size:0.82rem; color:var(--gold);">${item.preco} • ${item.cidade}</div>
+            <div style="font-size:0.82rem; color:var(--gold-bright);">${item.preco} • ${item.cidade}</div>
           </div>
           <div class="admin-actions">
             <button class="btn-secondary" onclick="toggleFire(${index})">${item.destaqueFogo ? "Tirar Fogo" : "🔥 Fogo"}</button>
@@ -974,7 +1041,7 @@
         localizacao,
         preco,
         destaqueFogo,
-        fotos: fotos.length ? fotos : ["https://via.placeholder.com/600x400?text=Imovel"],
+        fotos: fotos.length ? fotos : ["img/casa1.jpg"],
         caracteristicas
       };
 
@@ -996,7 +1063,7 @@
     }
 
     function persistData() {
-      localStorage.setItem("simone_catalogo_v1", JSON.stringify(imoveis));
+      localStorage.setItem("simone_catalogo_v2", JSON.stringify(imoveis));
       updateCityDropdown();
       renderAdminList();
       renderProperties();
@@ -1004,7 +1071,7 @@
 
     function resetDefaultData() {
       if (confirm("Voltar para os 3 imóveis originais?")) {
-        localStorage.removeItem("simone_catalogo_v1");
+        localStorage.removeItem("simone_catalogo_v2");
         imoveis = JSON.parse(JSON.stringify(DEFAULT_IMOVEIS));
         persistData();
       }
@@ -1028,9 +1095,6 @@
         cidades.map(c => `<option value="${c}">${c}</option>`).join("");
     }
 
-    // =========================================================================
-    // MODAIS E FILTROS
-    // =========================================================================
     function openZoom(src) {
       document.getElementById("modal-img").src = src;
       document.getElementById("photo-modal").classList.add("open");
